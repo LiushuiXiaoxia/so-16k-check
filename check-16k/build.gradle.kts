@@ -1,6 +1,8 @@
 plugins {
-    `java-gradle-plugin`
+    `java-library`
     alias(libs.plugins.jetbrains.kotlin.jvm)
+    `java-gradle-plugin`
+    `maven-publish`
 }
 
 java {
@@ -16,7 +18,7 @@ kotlin {
 
 dependencies {
     compileOnly(libs.agpDev)
-    implementation("com.github.LiushuiXiaoxia:process-kit:v0.0.4")
+    implementation(libs.processKit)
 }
 
 gradlePlugin {
@@ -24,6 +26,41 @@ gradlePlugin {
         create("check16k") {
             id = "com.github.liushuixiaoxia.check16k"
             implementationClass = "com.github.liushuixiaoxia.check16k.Check16kPlugin"
+        }
+    }
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+
+            pom {
+                name.set("so-16k-check") // 项目名称
+                description.set("kotlin/java call process kit")
+                url.set("https://github.com/LiushuiXiaoxia/so-16k-check")
+
+                licenses {
+                    license {
+                        name.set("MIT License")
+                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+
+                developers {
+                    developer {
+                        id.set("LiushuiXiaoxia")
+                        name.set("LiushuiXiaoxia")
+                        url.set("https://github.com/LiushuiXiaoxia")
+                    }
+                }
+
+                scm {
+                    connection.set("scm:git:git://github.com/LiushuiXiaoxia/so-16k-check.git")
+                    developerConnection.set("scm:git:ssh://github.com/LiushuiXiaoxia/so-16k-check.git")
+                    url.set("https://github.com/LiushuiXiaoxia/so-16k-check")
+                }
+            }
         }
     }
 }
