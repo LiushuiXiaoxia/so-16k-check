@@ -1,6 +1,7 @@
 pluginManagement {
     repositories {
         maven("https://maven.aliyun.com/repository/public/")
+        maven("https://jitpack.io")
         google {
             content {
                 includeGroupByRegex("com\\.android.*")

@@ -47,3 +47,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
+
+check16k {
+    enable.set(true)
+    ignoreError.set(false)
+}

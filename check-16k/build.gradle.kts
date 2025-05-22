@@ -16,6 +16,7 @@ kotlin {
 
 dependencies {
     compileOnly(libs.agpDev)
+    implementation("com.github.LiushuiXiaoxia:process-kit:v0.0.4")
 }
 
 gradlePlugin {
