@@ -18,7 +18,8 @@ android {
                 cppFlags("-std=c++17")
                 arguments("-DANDROID_STL=c++_shared")
                 // arguments("-DANDROID_STL=c++_static")
-                // cppFlags("-Wl,-z,max-page-size=16384")
+                cppFlags("-Wl,-z,max-page-size=16384")
+                arguments += listOf("-DANDROID_SUPPORT_FLEXIBLE_PAGE_SIZES=ON")
             }
         }
     }

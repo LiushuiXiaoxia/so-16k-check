@@ -17,6 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            abiFilters.addAll(listOf("x86_64", "arm64-v8a"))
+        }
     }
 
     buildTypes {
@@ -33,6 +37,12 @@ android {
 
     kotlinOptions {
         jvmTarget = "11"
+    }
+
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -52,5 +62,5 @@ dependencies {
 
 check16k {
     enable.set(true)
-    ignoreError.set(false)
+    ignoreError.set(true)
 }

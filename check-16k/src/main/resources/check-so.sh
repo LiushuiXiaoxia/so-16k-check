@@ -120,7 +120,6 @@ echo "====================="
 # 根据 check_result 判断是否退出成功
 if [ $check_result -eq 1 ]; then
     echo "Execution succeeded."
-    exit 0
 else
     echo "Execution failed."
     exit 1

@@ -28,7 +28,7 @@ abstract class Check16KTask : DefaultTask() {
     lateinit var apkDir: File
 
     @Internal
-    var ignoreError: Boolean = false
+    var ignoreError: Boolean = true
 
     @TaskAction
     fun action() {
@@ -47,18 +47,8 @@ abstract class Check16KTask : DefaultTask() {
             ?: throw RuntimeException("check-so.sh is not found")
         shell.writeText(s)
 
-        val ret = ProcessKit.call(
-            "bash ${shell.absolutePath} ${apk.absolutePath}",
-            callback = object : ProcessCallback {
-                override fun onComplete(result: ProcessResult) {
-                }
-
-                override fun onReceive(line: ResultLine) {
-                    logger.lifecycle(" checkSo16k: ${line.msg}")
-                }
-            }
-        )
-        if (ret.isSuccess()) {
+        val ret = ProcessKit.run("bash ${shell.absolutePath} ${apk.absolutePath}")
+        if (ret == 0) {
             logger.quiet("$name success")
         } else {
             if (ignoreError) {

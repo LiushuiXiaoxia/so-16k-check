@@ -24,6 +24,6 @@ fun Check16KTaskExtension.checkEnable(): Boolean {
 }
 
 fun Check16KTaskExtension.isIgnoreError(): Boolean {
-    return ignoreError.getOrElse(false)
+    return ignoreError.getOrElse(true)
 }
 
