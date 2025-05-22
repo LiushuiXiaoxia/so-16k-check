@@ -20,5 +20,7 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+includeBuild("..")
 
-include(":check-16k")
+include(":app")
+include(":nlog")
