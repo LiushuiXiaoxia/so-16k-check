@@ -32,8 +32,8 @@ class Check16kPlugin : Plugin<Project> {
             val taskName = "check${capitalizedVariant}So16k"
             val assembleTaskName = "assemble$capitalizedVariant"
             val tp = project.tasks.register(taskName, Check16KTask::class.java) {
-                it.buildDir = project.layout.buildDirectory.get().asFile
-                it.apkDir = variant.artifacts.get(SingleArtifact.APK).get().asFile
+                it.getBuildDir().set(project.layout.buildDirectory.get().asFile)
+                it.getApkDir().set(variant.artifacts.get(SingleArtifact.APK).get().asFile)
                 it.ignoreError = extension.isIgnoreError()
             }
             project.afterEvaluate {
