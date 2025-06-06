@@ -7,9 +7,11 @@ import org.gradle.api.logging.Logging
 import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
+import org.gradle.work.DisableCachingByDefault
 import java.io.File
 
 
+@DisableCachingByDefault(because = "This task is not cacheable because it depends on the APK file which may change frequently.")
 abstract class Check16KTask : DefaultTask() {
 
     private val logger = Logging.getLogger(Check16KTask::class.java)
@@ -17,7 +19,7 @@ abstract class Check16KTask : DefaultTask() {
     @Internal
     abstract fun getBuildDir(): DirectoryProperty
 
-    @InputDirectory
+    @Internal
     abstract fun getApkDir(): DirectoryProperty
 
     @Internal
