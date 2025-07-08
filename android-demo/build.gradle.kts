@@ -38,3 +38,6 @@ subprojects {
         }
     }
 }
+
+
+apply { from("build-so-log.gradle.kts") }
