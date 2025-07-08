@@ -6,6 +6,8 @@ Android apk so 16k check gradle plugin.
 
 [![](https://jitpack.io/v/LiushuiXiaoxia/so-16k-check.svg)](https://jitpack.io/#LiushuiXiaoxia/so-16k-check)
 
+[![Android CI](https://github.com/LiushuiXiaoxia/so-16k-check/actions/workflows/android.yml/badge.svg)](https://github.com/LiushuiXiaoxia/so-16k-check/actions/workflows/android.yml)
+
 ```kotlin
 // build.gradle.kts
 
