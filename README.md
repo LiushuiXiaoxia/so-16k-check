@@ -19,6 +19,18 @@ dependencyResolutionManagement {
     }
 }
 
+// 或
+
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath("com.github.LiushuiXiaoxia:so-16k-check:v0.0.1")
+    }
+}
+
 // build.gradle.kts
 // android application project
 plugins {
@@ -26,10 +38,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
 
     id("com.github.liushuixiaoxia.check16k")
-}
-
-dependencies {
-    implementation("com.github.LiushuiXiaoxia:so-16k-check:${version}")
 }
 
 check16k {
