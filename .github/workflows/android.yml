@@ -1,4 +1,4 @@
-name: Android CI
+name: Android Build Cross-Platform
 
 on:
   push:
@@ -27,47 +27,55 @@ jobs:
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: echo "ANDROID_SDK_ROOT=$HOME/Android/Sdk" >> $GITHUB_ENV
 
-      - name: Set ANDROID_SDK_ROOT for Windows
-        if: runner.os == 'Windows'
-        run: echo "ANDROID_SDK_ROOT=C:\\Users\\runneradmin\\AppData\\Local\\Android\\Sdk" >> $GITHUB_ENV
-
       - name: Install Android SDK command-line tools (Linux/macOS)
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: |
-          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
-          cd $ANDROID_SDK_ROOT/cmdline-tools
+          mkdir -p $ANDROID_HOME/cmdline-tools
+          cd $ANDROID_HOME/cmdline-tools
           curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
           unzip commandlinetools.zip
           rm commandlinetools.zip
-
-      - name: Install Android SDK command-line tools (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          powershell -Command "Invoke-WebRequest -Uri https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip -OutFile cmdline.zip"
-          powershell -Command "Expand-Archive cmdline.zip -DestinationPath $Env:ANDROID_SDK_ROOT\cmdline-tools"
-          powershell -Command "Remove-Item cmdline.zip"
-
+          pwd
+          mv cmdline-tools latest
+          ls -alh
       - name: Accept licenses (Linux/macOS)
         if: runner.os == 'Linux' || runner.os == 'macOS'
-        run: yes | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --licenses
-
-      - name: Accept licenses (Windows)
-        if: runner.os == 'Windows'
-        run: yes | $Env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager --licenses
+        run: |
+          ls -alh $ANDROID_HOME/cmdline-tools/latest
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses
 
       - name: Install SDK packages (Linux/macOS)
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: |
-          $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
-
-      - name: Install SDK packages (Windows)
-        if: runner.os == 'Windows'
-        run: |
-          $Env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
       - name: Grant execute permission for gradlew (Linux/macOS)
         if: runner.os == 'Linux' || runner.os == 'macOS'
         run: chmod +x ./gradlew
+
+      - name: Set ANDROID_SDK_ROOT for Windows
+        if: runner.os == 'Windows'
+        run: echo "ANDROID_SDK_ROOT=C:\\Users\\runneradmin\\AppData\\Local\\Android\\Sdk" >> $GITHUB_ENV
+
+      - name: Install Android SDK command-line tools (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          Invoke-WebRequest -Uri https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip -OutFile cmdline.zip
+          Expand-Archive cmdline.zip -DestinationPath $Env:ANDROID_SDK_ROOT\cmdline-tools
+          Remove-Item cmdline.zip
+          Get-Location
+          Rename-Item -Path '.\cmdline-tools' -NewName 'latest'
+          Get-ChildItem -Force | Format-List
+        shell: pwsh
+
+      - name: Accept licenses (Windows)
+        if: runner.os == 'Windows'
+        run: yes | $Env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager --licenses
+
+      - name: Install SDK packages (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $Env:ANDROID_SDK_ROOT\cmdline-tools\latest\bin\sdkmanager "platform-tools" "platforms;android-36" "build-tools;36.0.0"
 
       - name: Build Debug APK
         run: cd android-demo && ./gradlew clean assemble

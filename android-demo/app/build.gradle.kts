@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "cn.mycommons.so_16k_check"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "cn.mycommons.so_16k_check"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 

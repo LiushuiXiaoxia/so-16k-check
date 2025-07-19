@@ -8,10 +8,10 @@ plugins {
 subprojects {
     plugins.withId("com.android.application") {
         configure<com.android.build.gradle.AppExtension> {
-            compileSdkVersion(35)
+            compileSdkVersion(36)
             defaultConfig {
                 minSdk = 24
-                targetSdk = 35
+                targetSdk = 36
             }
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_11
@@ -24,10 +24,10 @@ subprojects {
 
     plugins.withId("com.android.library") {
         configure<com.android.build.gradle.LibraryExtension> {
-            compileSdkVersion(35)
+            compileSdkVersion(36)
             defaultConfig {
                 minSdk = 24
-                targetSdk = 35
+                targetSdk = 36
             }
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_11
