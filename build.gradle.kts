@@ -7,7 +7,7 @@ plugins {
 
 subprojects {
     group = "com.github.LiushuiXiaoxia"
-    version = project.findProperty("$name-version".uppercase())!!
+    version = project.findProperty("SDK-VERSION".uppercase())!!
 
     logger.quiet("setup $project maven $group:$name:$version")
 }

@@ -22,5 +22,5 @@ dependencyResolutionManagement {
     }
 }
 
-include(":check-16k")
-include(":check-sdk")
+include(":check-16k-plugin")
+include(":check-16k-sdk")
