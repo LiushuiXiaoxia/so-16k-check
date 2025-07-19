@@ -1,8 +1,6 @@
 plugins {
     `java-library`
     alias(libs.plugins.jetbrains.kotlin.jvm)
-    `java-gradle-plugin`
-    `maven-publish`
 }
 
 java {
@@ -17,8 +15,10 @@ kotlin {
 }
 
 dependencies {
-    compileOnly(libs.agpDev)
-    implementation(libs.processKit)
+    implementation(libs.cmdKit)
+
+    testImplementation(kotlin("test"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
 }
 
 tasks.test {

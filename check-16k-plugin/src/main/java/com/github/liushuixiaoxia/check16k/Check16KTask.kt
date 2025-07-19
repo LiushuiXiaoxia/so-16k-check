@@ -1,10 +1,9 @@
 package com.github.liushuixiaoxia.check16k
 
-import com.github.liushuixiaoxia.processkit.ProcessKit
+import com.github.liushuixiaoxia.cmdkit.CmdKit
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.logging.Logging
-import org.gradle.api.tasks.InputDirectory
 import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.work.DisableCachingByDefault
@@ -42,7 +41,7 @@ abstract class Check16KTask : DefaultTask() {
             ?: throw RuntimeException("check-so.sh is not found")
         shell.writeText(s)
 
-        val ret = ProcessKit.run("bash ${shell.absolutePath} ${apk.absolutePath}")
+        val ret = CmdKit.run("bash ${shell.absolutePath} ${apk.absolutePath}")
         if (ret == 0) {
             logger.quiet("$name success")
         } else {

@@ -18,7 +18,7 @@ kotlin {
 
 dependencies {
     compileOnly(libs.agpDev)
-    implementation(libs.processKit)
+    implementation(libs.cmdKit)
 }
 
 gradlePlugin {
