@@ -90,5 +90,13 @@ jobs:
             "platforms;android-34" `
             "build-tools;34.0.0"
 
+      - name: Add build-tools to PATH (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $buildToolsPath = "$Env:ANDROID_HOME\build-tools\36.0.0"
+          echo "Build tools path: $buildToolsPath"
+          echo "$buildToolsPath" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
       - name: Build Debug APK
         run: cd android-demo && ./gradlew clean assemble
