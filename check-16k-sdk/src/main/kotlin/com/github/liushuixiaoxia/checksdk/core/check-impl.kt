@@ -6,7 +6,7 @@ import com.github.liushuixiaoxia.checksdk.CheckSoArgs
 import com.github.liushuixiaoxia.checksdk.CheckSoResult
 import com.github.liushuixiaoxia.checksdk.ICheck
 import com.github.liushuixiaoxia.checksdk.ILogback
-import com.github.liushuixiaoxia.checksdk.so.SoInfo
+import com.github.liushuixiaoxia.checksdk.SoInfo
 import com.github.liushuixiaoxia.checksdk.util.unzip
 import java.io.File
 import java.nio.file.Files
@@ -21,9 +21,10 @@ class CheckImpl(val logback: ILogback) : ICheck {
 
     override fun checkApk(args: CheckArtefactArgs): CheckArtefactResult {
         val temp = Files.createTempDirectory("check-so-").toFile()
-        unzip(args.apk, temp)
+        args.apk.unzip(temp)
         val list = checkDir(temp)
-        return CheckArtefactResult(args.apk, false, list).apply {
+        val apkAlgin = checkSoAlignment(args.apk).all { it.value.second }
+        return CheckArtefactResult(args.apk, apkAlgin, list).apply {
             temp.deleteOnExit()
         }
     }

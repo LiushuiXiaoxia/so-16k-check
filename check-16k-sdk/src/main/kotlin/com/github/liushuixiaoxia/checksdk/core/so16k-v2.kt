@@ -1,4 +1,4 @@
-package com.github.liushuixiaoxia.checksdk.so
+package com.github.liushuixiaoxia.checksdk.core
 
 import com.github.liushuixiaoxia.cmdkit.CmdKit
 import java.io.File

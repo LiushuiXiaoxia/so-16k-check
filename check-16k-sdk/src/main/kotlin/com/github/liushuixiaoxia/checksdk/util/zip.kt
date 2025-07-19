@@ -4,10 +4,10 @@ import java.io.File
 import java.io.FileOutputStream
 import java.util.zip.ZipInputStream
 
-fun unzip(zipFile: File, targetDir: File) {
+fun File.unzip(targetDir: File) {
     if (!targetDir.exists()) targetDir.mkdirs()
 
-    ZipInputStream(zipFile.inputStream()).use { zip ->
+    ZipInputStream(this.inputStream()).use { zip ->
         var entry = zip.nextEntry
         while (entry != null) {
             val outFile = File(targetDir, entry.name)

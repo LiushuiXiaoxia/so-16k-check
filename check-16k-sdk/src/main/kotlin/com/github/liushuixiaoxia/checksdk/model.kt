@@ -1,7 +1,23 @@
-package com.github.liushuixiaoxia.checksdk.so
+package com.github.liushuixiaoxia.checksdk
 
+import com.github.liushuixiaoxia.checksdk.core.isElfPageAlignedV2
+import com.github.liushuixiaoxia.checksdk.core.readAbiFromSo
 import java.io.File
-import java.io.RandomAccessFile
+
+data class CheckResult(
+    val file: File,
+    val results: MutableList<CheckSoResult>,
+    val apkAlgin: Boolean? = null,
+)
+
+data class CheckSoArgs(
+    val so: File,
+)
+
+data class CheckSoResult(
+    val file: File,
+    var info: SoInfo,
+)
 
 data class SoInfo(
     val name: String,
@@ -58,23 +74,12 @@ enum class SoAbiType(val code: Int, val abi: String) {
     override fun toString(): String = abi
 }
 
-fun readAbiFromSo(filePath: String): SoAbiType {
-    val file = File(filePath)
-    if (!file.exists()) return SoAbiType.Unknown
+data class CheckArtefactArgs(
+    val apk: File,
+)
 
-    RandomAccessFile(file, "r").use { raf ->
-        val magic = ByteArray(4)
-        raf.readFully(magic)
-        if (!magic.contentEquals(byteArrayOf(0x7F, 'E'.code.toByte(), 'L'.code.toByte(), 'F'.code.toByte()))) {
-            return SoAbiType.Unknown
-        }
-
-        val eiClass = raf.readUnsignedByte() // 1=ELF32, 2=ELF64（不一定需要用）
-        raf.seek(0x12)
-        val eMachineBytes = ByteArray(2)
-        raf.readFully(eMachineBytes)
-        val eMachine = (eMachineBytes[1].toInt() and 0xFF shl 8) or (eMachineBytes[0].toInt() and 0xFF)
-
-        return SoAbiType.fromMachineCode(eMachine)
-    }
-}
+data class CheckArtefactResult(
+    val file: File,
+    val apkAlgin: Boolean? = null,
+    val list: List<CheckSoResult> = listOf(),
+)

@@ -1,33 +1,7 @@
 package com.github.liushuixiaoxia.checksdk
 
-import com.github.liushuixiaoxia.checksdk.so.SoInfo
 import java.io.File
 
-data class CheckResult(
-    val file: File,
-    val results: MutableList<CheckSoResult>,
-    val apkAlgin: Boolean? = null,
-)
-
-data class CheckSoArgs(
-    val so: File,
-)
-
-data class CheckSoResult(
-    val file: File,
-    var info: SoInfo,
-)
-
-
-data class CheckArtefactArgs(
-    val apk: File,
-)
-
-data class CheckArtefactResult(
-    val file: File,
-    val apkAlgin: Boolean? = null,
-    val list: List<CheckSoResult> = listOf(),
-)
 
 interface ICheck {
 

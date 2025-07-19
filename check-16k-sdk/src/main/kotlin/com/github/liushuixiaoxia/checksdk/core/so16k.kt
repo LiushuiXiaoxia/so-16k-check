@@ -1,4 +1,4 @@
-package com.github.liushuixiaoxia.checksdk.so
+package com.github.liushuixiaoxia.checksdk.core
 
 import java.io.File
 import java.io.RandomAccessFile
