@@ -8,8 +8,10 @@ on:
 
 jobs:
   build:
-    name: Build Android App
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, windows-latest, macos-latest ]
 
     steps:
       - name: Checkout code
@@ -21,10 +23,50 @@ jobs:
           distribution: 'temurin'
           java-version: 17
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - name: Set ANDROID_SDK_ROOT environment variable
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: echo "ANDROID_SDK_ROOT=$HOME/Android/Sdk" >> $GITHUB_ENV
 
-      - name: Make Gradle executable
+      - name: Set ANDROID_SDK_ROOT for Windows
+        if: runner.os == 'Windows'
+        run: echo "ANDROID_SDK_ROOT=C:\\Users\\runneradmin\\AppData\\Local\\Android\\Sdk" >> $GITHUB_ENV
+
+      - name: Install Android SDK command-line tools (Linux/macOS)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: |
+          mkdir -p $ANDROID_SDK_ROOT/cmdline-tools
+          cd $ANDROID_SDK_ROOT/cmdline-tools
+          curl -o commandlinetools.zip https://dl.google.com/android/repository/commandlinetools-linux-9477386_latest.zip
+          unzip commandlinetools.zip
+          rm commandlinetools.zip
+
+      - name: Install Android SDK command-line tools (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          powershell -Command "Invoke-WebRequest -Uri https://dl.google.com/android/repository/commandlinetools-win-9477386_latest.zip -OutFile cmdline.zip"
+          powershell -Command "Expand-Archive cmdline.zip -DestinationPath $Env:ANDROID_SDK_ROOT\cmdline-tools"
+          powershell -Command "Remove-Item cmdline.zip"
+
+      - name: Accept licenses (Linux/macOS)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: yes | $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager --licenses
+
+      - name: Accept licenses (Windows)
+        if: runner.os == 'Windows'
+        run: yes | $Env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager --licenses
+
+      - name: Install SDK packages (Linux/macOS)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
+        run: |
+          $ANDROID_SDK_ROOT/cmdline-tools/tools/bin/sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
+
+      - name: Install SDK packages (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          $Env:ANDROID_SDK_ROOT\cmdline-tools\tools\bin\sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0"
+
+      - name: Grant execute permission for gradlew (Linux/macOS)
+        if: runner.os == 'Linux' || runner.os == 'macOS'
         run: chmod +x ./gradlew
 
       - name: Build Debug APK
