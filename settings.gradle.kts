@@ -23,3 +23,4 @@ dependencyResolutionManagement {
 }
 
 include(":check-16k")
+include(":check-sdk")
