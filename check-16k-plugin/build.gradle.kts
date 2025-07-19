@@ -23,8 +23,8 @@ dependencies {
 
 gradlePlugin {
     plugins {
-        create("check16k") {
-            id = "com.github.liushuixiaoxia.check16k"
+        create("check16kplugin") {
+            id = "com.github.liushuixiaoxia.check16kplugin"
             implementationClass = "com.github.liushuixiaoxia.check16k.Check16kPlugin"
         }
     }

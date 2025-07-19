@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 
-    id("com.github.liushuixiaoxia.check16k")
+    id("com.github.liushuixiaoxia.check16kplugin")
 }
 
 android {
