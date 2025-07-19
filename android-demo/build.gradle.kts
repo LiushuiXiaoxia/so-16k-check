@@ -17,8 +17,8 @@ subprojects {
                 sourceCompatibility = JavaVersion.VERSION_11
                 targetCompatibility = JavaVersion.VERSION_11
             }
-            // ndkVersion = "27.2.12479018"
-            ndkVersion = "28.1.13356709"
+            ndkVersion = "27.2.12479018"
+            // ndkVersion = "28.1.13356709"
         }
     }
 
@@ -33,8 +33,8 @@ subprojects {
                 sourceCompatibility = JavaVersion.VERSION_11
                 targetCompatibility = JavaVersion.VERSION_11
             }
-            // ndkVersion = "27.2.12479018"
-            ndkVersion = "28.1.13356709"
+            ndkVersion = "27.2.12479018"
+            // ndkVersion = "28.1.13356709"
         }
     }
 }
