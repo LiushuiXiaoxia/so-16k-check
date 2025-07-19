@@ -29,12 +29,6 @@ subprojects {
                 minSdk = 24
                 // targetSdk = 36
             }
-            lint {
-                targetSdk = 36
-            }
-            test {
-                targetSdk = 36
-            }
             compileOptions {
                 sourceCompatibility = JavaVersion.VERSION_11
                 targetCompatibility = JavaVersion.VERSION_11

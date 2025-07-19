@@ -11,6 +11,13 @@ cleanup_trap() {
   exit $1
 }
 
+# auto find 36
+bt36="$ANDROID_HOME/build-tools/36.0.0"
+if [ -d "$bt36" ]; then
+  export PATH="$bt36:$PATH"
+fi
+
+
 usage() {
   echo "Host side script to check the ELF alignment of shared libraries."
   echo "Shared libraries are reported ALIGNED when their ELF regions are"
