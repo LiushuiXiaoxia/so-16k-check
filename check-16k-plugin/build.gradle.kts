@@ -19,6 +19,8 @@ kotlin {
 dependencies {
     compileOnly(libs.agpDev)
     implementation(libs.cmdKit)
+
+    implementation(project(":check-16k-sdk")) // 引入 check-16k-sdk 模块
 }
 
 gradlePlugin {
