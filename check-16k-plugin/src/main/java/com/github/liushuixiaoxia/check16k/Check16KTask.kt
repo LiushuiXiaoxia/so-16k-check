@@ -1,5 +1,6 @@
 package com.github.liushuixiaoxia.check16k
 
+import com.github.liushuixiaoxia.checksdk.CheckKit
 import com.github.liushuixiaoxia.cmdkit.CmdKit
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
@@ -8,6 +9,7 @@ import org.gradle.api.tasks.Internal
 import org.gradle.api.tasks.TaskAction
 import org.gradle.work.DisableCachingByDefault
 import java.io.File
+import kotlin.math.log
 
 
 @DisableCachingByDefault(because = "This task is not cacheable because it depends on the APK file which may change frequently.")
@@ -33,6 +35,13 @@ abstract class Check16KTask : DefaultTask() {
             throw RuntimeException("apk is not found, apk = $apk")
         }
         logger.lifecycle("apk = $apk")
+
+        val result = CheckKit.check(apk)
+        logger.lifecycle("result.file = ${result.file}")
+        logger.lifecycle("result.apkAlgin = ${result.apkAlgin}")
+        result.results.forEach {
+            logger.lifecycle("result.results = $it")
+        }
 
         val shell = File(getBuildDir().get().asFile, "intermediates/check-so/check-so.sh").apply {
             parentFile.mkdirs()
