@@ -11,4 +11,5 @@ local.properties
 .kotlin
 build
 z-res
+z-test
 out

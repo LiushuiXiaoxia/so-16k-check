@@ -7,7 +7,7 @@ class CheckKitTest {
 
     @Test
     fun testArtefact() {
-        val apk = File("../z-res/app-debug.apk")
+        val apk = File("../z-test/app-debug.apk")
         val ret = CheckKit.check(apk)
         println("ret.file = ${ret.file}")
         println("ret.apkAlgin = ${ret.apkAlgin}")
@@ -18,7 +18,7 @@ class CheckKitTest {
 
     @Test
     fun testFile() {
-        val f = File("../z-res/app")
+        val f = File("../z-test/app")
         val ret = CheckKit.check(f)
         println("ret.file = ${ret.file}")
         println("ret.apkAlgin = ${ret.apkAlgin}")
@@ -30,7 +30,7 @@ class CheckKitTest {
 
     @Test
     fun testSo() {
-        val f = File("../z-res/app")
+        val f = File("../z-test/app")
 
         listOf(
             "lib/arm64-v8a/libc++_shared.so",

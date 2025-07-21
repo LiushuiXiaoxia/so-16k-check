@@ -9,8 +9,8 @@ class CheckImplTest {
 
     @Test
     fun testApk() {
-        // val apk = File("z-res/app-debug.apk")
-        val apk = File("z-res/app-debug.apk")
+        // val apk = File("z-test/app-debug.apk")
+        val apk = File("z-test/app-debug.apk")
         val check = CheckImpl(ILogback.DefaultImpl())
         val ret = check.checkApk(CheckArtefactArgs(apk))
         println("ret = $ret")
