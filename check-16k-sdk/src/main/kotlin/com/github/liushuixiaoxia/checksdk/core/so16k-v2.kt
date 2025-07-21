@@ -9,8 +9,8 @@ fun isElfPageAlignedV2(file: File): Boolean {
     if (!ret.isSuccess()) {
         return false
     }
-    Thread.sleep(10)
-    val s = ret.all.firstOrNull { it.contains("LOAD") } ?: return false
+    val s = ret.all.firstOrNull { it.contains("LOAD") }
+    s ?: return false
     // println(s)
     // LOAD off    0x0000000000000000 vaddr 0x0000000000000000 paddr 0x0000000000000000 align 2**14
     val regex = Regex("""align\s+\d\*\*\d+""")
