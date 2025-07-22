@@ -21,6 +21,11 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+
+plugins {
+    id("com.gradle.develocity").version("4.1")
+}
+
 includeBuild("..")
 
 include(":app")
